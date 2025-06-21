@@ -4,7 +4,7 @@
 
 2. Escreva um programa que receba a idade de uma pessoa e verifique se ela é menor de idade (menor que 18 anos) ou maior de idade.
 
-3. Escreva um programa que leia três números inteiros e exiba o maior e o menor deles. Extra: Tente fazer isso utilizando os métodos de lista.
+3. Escreva um programa que leia três números inteiros e exiba o maior e o menor deles. Extra: Tente fazer isso utilizando funções built-in.
 
 4. Crie um programa que peça ao usuário para digitar dois números inteiros e exiba a soma, subtração, multiplicação e divisão dos números.
 
