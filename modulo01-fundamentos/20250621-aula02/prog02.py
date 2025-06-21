@@ -30,13 +30,16 @@ if __name__ == "__main__":
         nome="Uruk-Hai",
         ataque=13,
         defesa=12,
-        hp=25
+        hp=1
     )
 
     existe_vencedor = False
     vencedor = None
 
+    # Enquanto a condição que colocamos no laço while for True, o bloco será executado. Temos que tomar cuidado para garantir que o bloco de código possua alguma instrução que possibilite a condição do loop ser False, ou então corremos o risco de executar um loop infinito.
     while not existe_vencedor:
+
+        # Assim como o laço for, no laço while também podemos utilizar as instruções break e continue, que se comportarão exatamente como no laço for. Assim como também podemos utilizar o bloco else
         
         for numero in range(2, 4):
             if numero % 2 == 0:
@@ -47,27 +50,58 @@ if __name__ == "__main__":
                 atacante = monstro
                 defensor = heroi
 
+            # Podemos acessar o valor associado a uma chave do dicionários de 2 maneiras: Diretamente utilizando a sintaxe de colchetes, onde passamos o nome da chave
             print(f"{atacante['nome']} ataca {defensor['nome']}!")
             dado_ataque = randint(1, 6)
             dado_defesa = randint(1, 6)
 
+            # Utilizando essa sintaxe, a chave indicada deve existir. Caso não exista, a exceção KeyError é lançada.
+
+            # Podemos também utilizar o método get. Esse método é mais seguro do que o método de colchetes, pois caso a chave não exista no dicionário, será retornado o valor None, ou o valor padrão que definirmos como segundo parâmetro desse método
             ataque_atacante = atacante.get("ataque") + dado_ataque
             defesa_defensor = defensor.get("defesa") + dado_defesa
 
+            # A função sleep faz o programa "esperar" a quantidade de segundos informada na chamada
             sleep(1)
 
             if ataque_atacante > defesa_defensor:
                 print(f"{atacante['nome']} acertou um golpe no {defensor['nome']}!")
-                defesa_defensor["hp"] = defesa_defensor["hp"] - (ataque_atacante - defensor["defesa"])
+
+                # Assim como listas, dicionários são mutáveis, ou seja, podemos alterar diretamente um valor informado a chave associada a esse valor. Caso essa chave não exista no dicionário, ela será criada.
+                defensor["hp"] = defensor["hp"] - (ataque_atacante - defensor["defesa"])
 
             else:
                 print(f"{defensor['nome']} defendeu o ataque de {atacante['nome']}!")
 
             sleep(1)
 
+            print("*"*20)
+            print(f"{atacante['nome']} HP: {atacante['hp']}.")
+            print(f"{defensor['nome']} HP: {defensor['hp']}.")
+
             if defensor["hp"] <= 0:
                 existe_vencedor = True
                 vencedor = atacante
                 break
 
-    print(f"Vencedor: {vencedor['nome']}!")
+    print("###")
+
+    # Podemos atualizar dicionários utilizando os métodos update ou setdefault
+    vencedor.update({"origem": "Terra média"})
+    vencedor.setdefault("nome", "Teste")
+
+    for chave, valor in vencedor.items():
+        print(f"{chave.capitalize()}: {valor}")
+
+    # Podemos remover um par chave-valor de um dicionário utilizando os métodos pop() ou popitem()
+    # pop remove o par chave-valor indicado pelo nome da chave passada como parâmetro
+    vencedor.pop("origem")
+
+    # popitem remove o último par chave-valor que foi criado
+    vencedor.popitem()
+
+    # Caso queiramos excluir todos os pares chave-valor do dicionário, utilizamos o método clear()
+    monstro.clear()
+
+    print(vencedor)
+    print(monstro)
