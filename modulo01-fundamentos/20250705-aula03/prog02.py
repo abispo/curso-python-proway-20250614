@@ -56,3 +56,18 @@ if __name__ == "__main__":
     print("{:.1f}".format(
         calculo_imc(**altura_peso_roberto)
     ))
+
+    print('-'*30)
+
+    lista_alturas_pesos = [
+        {"altura": 1.88, "peso": 98.6},
+        {"peso": 101.5, "altura": 2.03},
+        {"peso": 99.4, "altura": 1.93},
+        {"peso": 62.5, "altura": 1.64},
+        {"altura": 1.77, "peso": 80.1}
+    ]
+
+    for item in lista_alturas_pesos:
+        print("{:.1f}".format(
+        calculo_imc(**item))
+    )
