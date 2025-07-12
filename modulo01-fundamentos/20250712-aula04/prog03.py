@@ -2,6 +2,8 @@
 Entrada e Saída(I/O) de arquivos em Python.
 
 Trabalhando com arquivos .csv (Comma Separated Value) no Python
+
+Leitura de arquivos com csv.reader e csv.DictReader
 """
 
 import csv
