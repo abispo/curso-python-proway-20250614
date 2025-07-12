@@ -7,6 +7,22 @@ Trabalhando com arquivos .csv (Comma Separated Value) no Python
 import csv
 import os
 
+def formata_saida(
+        first_name: str,
+        last_name: str,
+        birth_date: str,
+        email: str,
+        password: str = "",
+        gender: str = "",
+        id: str = "",
+        username: str = ""
+    ):
+    
+    print(f"{'Nome'.ljust(21)} {first_name} {last_name}")
+    print(f"{'Data de Nascimento'.ljust(21)} {birth_date}")
+    print(f"{'Email'.ljust(21)} {email}")
+    print('-'*50)
+
 if __name__ == "__main__":
 
     caminho_arquivo = os.path.join(os.getcwd(), "arquivos", "usuarios.csv")
@@ -20,3 +36,14 @@ if __name__ == "__main__":
         # Não temos acesso aos métodos de leitura no arquivo .csv como temos quando trabalhamos com um arquivo .txt comum. Nesse caso, temos que iterar sobre o arquivo, e cada linha será retornada como uma lista de strings.
         for linha in arquivo_csv:
             print(f"{linha[2]} {linha[3]}")
+
+        
+        with open(caminho_arquivo, 'r', encoding="utf-8") as arquivo:
+
+            # Utilizando o csv.DictReader
+            arquivo_csv = csv.DictReader(arquivo, delimiter=';')
+
+            # Diferentemente do csv.reader, o csv.DictReader retorna um dicionário a cada iteração. As chaves serão os valores da primeira linha, e os valores serão os valores da segunda linha em diante
+            print(arquivo_csv.fieldnames)
+            for linha in arquivo_csv:
+                formata_saida(**linha)
