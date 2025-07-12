@@ -57,6 +57,8 @@ if __name__ == "__main__":
         calculo_imc(**altura_peso_roberto)
     ))
 
+    # calculo_imc(altura=1.74, peso=107.3)
+
     print('-'*30)
 
     lista_alturas_pesos = [
