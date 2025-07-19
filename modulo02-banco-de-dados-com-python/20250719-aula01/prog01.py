@@ -18,6 +18,7 @@ if __name__ == "__main__":
     2. Criamos uma conexão com o banco de dados a partir da connection string
     3. A partir da conexão, criamos um cursor. É através do cursor que enviamos os comandos SQL para o banco de dados
     4. Executamos o cursor, e se necessário pegamos o resultado do comando no banco de dados.
+    5. Fechamos o cursor e a conexão
     """
 
     # 1. Definimos a connection string
@@ -39,6 +40,9 @@ if __name__ == "__main__":
         );
 """
 
+    # 4. Executamos o comando definido anteriormente utilizando o cursor
     response = cursor.execute(comando)
 
-    print(response)
+    # 5. Fechamos o cursor e a conexão
+    cursor.close()
+    connection.close()
