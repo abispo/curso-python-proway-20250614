@@ -44,4 +44,21 @@ if __name__ == "__main__":
 
     ticker_info = response.json()[0]
 
+    command = """
+        INSERT INTO tb_criptos(simbolo, nome, preco_usd, market_cap_usd)
+        VALUES
+        (%s, %s, %s, %s)"""
     
+    cursor.execute(
+        command,
+        (
+            ticker_info.get("symbol"),
+            ticker_info.get("name"),
+            ticker_info.get("price_usd"),
+            ticker_info.get("market_cap_usd"),
+        )
+    )
+
+    connection.commit()
+
+    print(ticker_info)
