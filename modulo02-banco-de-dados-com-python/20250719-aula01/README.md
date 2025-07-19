@@ -1,6 +1,6 @@
 # Python com Banco de Dados
 
-## Trabalhando com a Biblioteca sqlite3
+## Trabalhando com banco de dados (SQLite ou MySQL)
 
 * Os arquivos estão em https://github.com/abispo/shared-files/tree/main/modulo02. Utilize a biblioteca `requests` para baixá-los.
 
