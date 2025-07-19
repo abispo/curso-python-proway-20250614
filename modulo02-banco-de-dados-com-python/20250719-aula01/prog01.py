@@ -43,6 +43,25 @@ if __name__ == "__main__":
     # 4. Executamos o comando definido anteriormente utilizando o cursor
     response = cursor.execute(comando)
 
+    lista_cursos = [
+        {"nome": "Fundamentos Python", "preco": 550},
+        {"nome": "Java Avançado", "preco": 1500},
+        {"nome": "Microserviços com Go", "preco": 990},
+        {"nome": "Introdução ao DevOps", "preco": 600},
+        {"nome": "Linux Básico", "preco": 750}
+    ]
+
+    for curso in lista_cursos:
+        comando = "INSERT INTO tb_cursos(nome, preco) VALUES ('{nome}', {preco})".format(
+            **curso
+        )
+
+        # Apenas o método execute() não irá salvar os dados na tabela. No caso de comandos DML (Data Manipulation Language) INSERT, DELETE e UPDATE precisamos confirmar a transação para que os dados sejam salvos. Nesse caso, precisamos executar o método commit() da conexão, que irá confirmar essa transação. https://miro.medium.com/v2/resize:fit:600/1*Hzxwsot3CEX5C1Auh4e77g.png
+        cursor.execute(comando)
+    
+    # Confirmação da transação
+    connection.commit()
+
     # 5. Fechamos o cursor e a conexão
     cursor.close()
     connection.close()
