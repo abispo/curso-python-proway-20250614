@@ -26,7 +26,7 @@ if __name__ == "__main__":
             id INT PRIMARY KEY AUTO_INCREMENT,
             simbolo VARCHAR(10) NOT NULL,
             nome VARCHAR(20) NOT NULL,
-            preco_usd FLOAT NOT NULL,
+            preco_usd DOUBLE NOT NULL,
             market_cap_usd DOUBLE NOT NULL,
             criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
