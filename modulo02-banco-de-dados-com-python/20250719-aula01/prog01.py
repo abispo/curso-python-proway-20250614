@@ -57,10 +57,30 @@ if __name__ == "__main__":
         )
 
         # Apenas o método execute() não irá salvar os dados na tabela. No caso de comandos DML (Data Manipulation Language) INSERT, DELETE e UPDATE precisamos confirmar a transação para que os dados sejam salvos. Nesse caso, precisamos executar o método commit() da conexão, que irá confirmar essa transação. https://miro.medium.com/v2/resize:fit:600/1*Hzxwsot3CEX5C1Auh4e77g.png
-        cursor.execute(comando)
+        # cursor.execute(comando)
     
     # Confirmação da transação
-    connection.commit()
+    # connection.commit()
+
+    # Agora vamos consultar os dados da tabela. Podemos utilizar 3 métodos para trazer os dados de uma tabela no banco.
+
+    # fetchone(): Retorna apenas 1 registro da tabela. Se a consulta não tiver resultados, retorna None. Caso haja resultados, esse método retorna uma tupla, onde cada item da tupla é o valor da coluna
+
+    command = "SELECT * FROM tb_cursos;"
+    cursor.execute(command)
+
+    response = cursor.fetchone()
+    print(response)
+
+    # fetchmany(qtd): Retorna a quantidade de registros que é informada como uma lista de tuplas. Se a consulta não trouxer resultados, retorna uma lista vazia
+    response = cursor.fetchmany(2)
+    print(response)
+
+    # fetchall(): Retorna todos os resultados da consulta. Se a consulta não tiver resultados, retorna uma lista vazia
+    response = cursor.fetchall()
+    print(response)
+
+    print(cursor.fetchall())
 
     # 5. Fechamos o cursor e a conexão
     cursor.close()
