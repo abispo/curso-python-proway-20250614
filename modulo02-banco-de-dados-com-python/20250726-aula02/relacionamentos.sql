@@ -107,3 +107,7 @@ INSERT INTO postagens(usuario_id, titulo, texto) VALUES
 	(1, 'A linguagem Assembly', 'Assembly é utilizado em baixo nível.'),
 	(2, 'A linguagem Java', 'Java é largamento utilizado.');
 SELECT * FROM postagens;
+
+SELECT a.id, a.email, b.titulo FROM usuarios a
+INNER JOIN postagens b
+ON a.id = b.usuario_id;
