@@ -140,5 +140,13 @@ if __name__ == "__main__":
     )[0]
 
     curso_maior_valor2 = sorted(
-        results, key=lambda item: item[3], reverse=True
+        results, key=lambda curso: curso[3], reverse=True
     )[0]
+
+    """
+    (
+        (1, "Curso Java", 20, 500),
+        (2, "Curso SQL", 10, 200),
+        (3, "Curso Python", 25, 300)
+    )
+    """
