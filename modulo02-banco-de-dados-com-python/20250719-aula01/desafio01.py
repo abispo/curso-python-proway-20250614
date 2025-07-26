@@ -64,7 +64,7 @@ if __name__ == "__main__":
         CREATE TABLE IF NOT EXISTS tb_estatisticas_cursos(
             id INT PRIMARY KEY AUTO_INCREMENT,
             qtd_cursos INT NOT NULL,
-            curso_maior_carga_horaria VARCHAR(100) NOT NULL
+            curso_maior_carga_horaria VARCHAR(100) NOT NULL,
             curso_com_maior_valor VARCHAR(100) NOT NULL
         );"""
     cursor.execute(command)
@@ -72,3 +72,73 @@ if __name__ == "__main__":
     cursor.execute("DELETE FROM tb_estatisticas_cursos")
     cursor.execute("DELETE FROM tb_cursos")
     connection.commit()
+
+    # A linha abaixo considera que o arquivo cursos.csv está na mesma pasta que o script
+    with open("cursos.csv", "r", encoding="utf-8") as _file:
+
+        csv_file = csv.DictReader(_file, delimiter=';')
+
+        for line in csv_file:
+            command = """
+                INSERT INTO tb_cursos(curso, carga_horaria, preco) VALUES(
+                    '{}', {}, {}
+                )""".format(
+                    line.get("curso"),
+                    int(line.get("carga_horaria")),
+                    float(line.get("preco"))
+                )
+            cursor.execute(command)
+        connection.commit()
+
+    # Agora iremos salvar os dados estatísticos. Podemos utilizar tanto SQL quanto Python para gerar essas informações. Vamos passar pelos 2 métodos
+
+    # Método 1: Utilizando SQL
+
+    # Quantidade de cursos
+    cursor.execute(
+        "SELECT COUNT(id) FROM tb_cursos"
+    )
+    qtd_cursos = cursor.fetchone()[0]
+
+    # Curso com a maior carga horária
+    cursor.execute(
+        "SELECT * FROM tb_cursos ORDER BY carga_horaria DESC"
+    )
+    curso_maior_carga_horaria = cursor.fetchone()
+
+    # Curso com o maior valor
+    cursor.execute(
+        "SELECT * FROM tb_cursos ORDER BY preco DESC;"
+    )
+    curso_com_maior_valor = cursor.fetchone()
+
+    command = """
+        INSERT INTO tb_estatisticas_cursos(
+            qtd_cursos, curso_maior_carga_horaria, curso_com_maior_valor
+        ) VALUES ({}, '{}', '{}');""".format(
+            qtd_cursos,
+            f"{curso_maior_carga_horaria[1]} ({curso_maior_carga_horaria[2]} horas)",
+            f"{curso_com_maior_valor[1]} (R$ {curso_com_maior_valor[3]})"
+        )
+    cursor.execute(command)
+    connection.commit()
+
+    # Método 2: Utilizando Python
+    cursor.execute("SELECT * FROM tb_cursos")
+    results = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    # Quantidade de cursos
+    qtd_cursos2 = len(results)
+    print(qtd_cursos2)
+
+    # Curso com a maior carga horário
+    curso_maior_carga_horaria = sorted(
+        results, key=lambda item: item[2], reverse=True
+    )[0]
+
+    curso_maior_valor2 = sorted(
+        results, key=lambda item: item[3], reverse=True
+    )[0]
