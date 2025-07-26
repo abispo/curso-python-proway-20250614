@@ -83,3 +83,27 @@ valores repetidos para as colunas id das tabelas usuarios e perfis, e garantindo
 que os valores da coluna id da tabela perfis existem na tabela usuarios
 */
 
+/*
+No caso dos dados da postagem, temos que armazenar as seguintes informações:
+
+* id da postagem
+* id do usuario que fez a postagem
+* titulo da postagem
+* texto da postagem
+* data e hora de criacão da postagem
+*/
+
+CREATE TABLE IF NOT EXISTS postagens(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	usuario_id INT NOT NULL,
+	titulo VARCHAR(100) NOT NULL,
+	texto VARCHAR(1000) NOT NULL,
+	criado_em DATETIME DEFAULT CURRENT_TIMESTAMP(),
+	FOREIGN KEY(usuario_id) REFERENCES usuarios(id)
+);
+
+INSERT INTO postagens(usuario_id, titulo, texto) VALUES
+	(1, 'A linguagem Python', 'Python é especialmente usada em dados.'),
+	(1, 'A linguagem Assembly', 'Assembly é utilizado em baixo nível.'),
+	(2, 'A linguagem Java', 'Java é largamento utilizado.');
+SELECT * FROM postagens;
