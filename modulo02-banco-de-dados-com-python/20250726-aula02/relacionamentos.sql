@@ -174,3 +174,26 @@ Foi criada a tabela associativa postagens_categorias que terá as colunas
 associadas a cada coluna id das tabelas postagens e categorias, permitindo
 a associação entre essas 2 tabelas.
 */
+
+/*
+Agora vamos criar a tabela para armazenar os comentários. Essa tabela deve
+armazenar as seguintes informações
+* id do comentário
+* id da postagem onde esse comentário foi realizado
+* id do usuário que fez esse comentário
+* texto do comentário
+* uma coluna pra armazenar a data/hora que esse comentário foi feito
+
+Não se esqueça de criar as chaves e os relacionamentos entre as tabelas
+necessárias
+*/
+CREATE TABLE IF NOT EXISTS comentarios(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	postagem_id INT NOT NULL,
+	usuario_id INT NOT NULL,
+	texto VARCHAR(100) NOT NULL,
+	criado_em DATETIME DEFAULT CURRENT_TIMESTAMP(),
+	FOREIGN KEY (postagem_id) REFERENCES postagens(id),
+	FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+DROP TABLE comentarios ;
