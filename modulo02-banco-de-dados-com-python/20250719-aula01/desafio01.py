@@ -58,5 +58,17 @@ if __name__ == "__main__":
             carga_horaria INT NOT NULL,
             preco FLOAT NOT NULL
         );"""
-    
     cursor.execute(command)
+
+    command = """
+        CREATE TABLE IF NOT EXISTS tb_estatisticas_cursos(
+            id INT PRIMARY KEY AUTO_INCREMENT,
+            qtd_cursos INT NOT NULL,
+            curso_maior_carga_horaria VARCHAR(100) NOT NULL
+            curso_com_maior_valor VARCHAR(100) NOT NULL
+        );"""
+    cursor.execute(command)
+
+    cursor.execute("DELETE FROM tb_estatisticas_cursos")
+    cursor.execute("DELETE FROM tb_cursos")
+    connection.commit()
