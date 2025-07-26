@@ -76,3 +76,10 @@ INSERT INTO perfis(id, nome, data_de_nascimento, genero) VALUES (
 	2, 'Maria Batista', NULL, 'Feminino'
 );
 SELECT * FROM perfis;
+
+/*
+Acima garantimos a aplicação do relacionamento 1:1, garantindo que não haverá
+valores repetidos para as colunas id das tabelas usuarios e perfis, e garantindo
+que os valores da coluna id da tabela perfis existem na tabela usuarios
+*/
+
