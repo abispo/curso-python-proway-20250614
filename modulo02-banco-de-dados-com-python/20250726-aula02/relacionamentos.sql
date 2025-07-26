@@ -29,3 +29,22 @@ Nesse caso, nosso sistema terá 5 entidades (tabelas):
 acesso (email, senha, etc) e outra para os dados pessoais (nome, genero, etc)
 */
 
+CREATE DATABASE IF NOT EXISTS relacionamentos;
+
+CREATE TABLE IF NOT EXISTS usuarios(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	email VARCHAR(100) NOT NULL,
+	senha VARCHAR(100) NOT NULL,
+	criado_em DATETIME DEFAULT CURRENT_TIMESTAMP()
+);
+
+CREATE TABLE IF NOT EXISTS perfis(
+	id INT PRIMARY KEY,
+	nome VARCHAR(100) NOT NULL,
+	data_de_nascimento DATE NULL,
+	genero VARCHAR(50) NULL
+-- 	FOREIGN KEY(id) REFERENCES usuarios(id)
+);
+
+-- Caso você queira adicionar a chave estrangeira depois
+ALTER TABLE perfis ADD FOREIGN KEY(id) REFERENCES usuarios(id);
