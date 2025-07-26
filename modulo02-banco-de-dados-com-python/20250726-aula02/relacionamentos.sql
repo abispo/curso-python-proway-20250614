@@ -111,3 +111,66 @@ SELECT * FROM postagens;
 SELECT a.id, a.email, b.titulo FROM usuarios a
 INNER JOIN postagens b
 ON a.id = b.usuario_id;
+
+/*
+Com isso garantimos o relacionamento 1:N entre as entidades usuarios e
+postagens. Um usuário pode realizar diversas postagens, enquanto uma postagem
+pode ter apenas 1 autor (usuario). Para isso criamos a coluna usuario_id na
+tabela de postagens e a definimos como uma chave estrangeira que referencia
+a coluna id da tabela usuarios.
+*/
+
+/*
+Para a criação da tabela de categorias, vamos precisar apenas da coluna nome.
+Uma categoria pode ser atribuída a diversas postagens, enquanto uma postagem
+pode ter diversas categorias atribuídas a ela.
+*/
+
+CREATE TABLE IF NOT EXISTS categorias(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(100) NOT NULL
+);
+DESC categorias;
+
+INSERT INTO categorias (nome) VALUES
+	('python'),
+	('programacao'),
+	('sql'),
+	('proway'),
+	('linux');
+
+/*
+Como temos uma relação de N:N entre as tabelas postagens e categorias, precisamos
+criar uma outra tabela, que chamamos de tabela associativa. Como o próprio nome
+diz, é a tabela que irá associar os dados relacionados entre postagens e
+categorias
+*/
+
+CREATE TABLE IF NOT EXISTS postagens_categorias(
+	postagem_id INT NOT NULL,
+	categoria_id INT NOT NULL,
+	PRIMARY KEY(postagem_id, categoria_id),
+	FOREIGN KEY(postagem_id) REFERENCES postagens(id),
+	FOREIGN KEY(categoria_id) REFERENCES categorias(id)
+);
+
+-- Associando a postagem "A Linguagem Python" com as categorias
+-- "python" e "programacao"
+INSERT INTO postagens_categorias(postagem_id, categoria_id)
+VALUES
+	(1, 1),
+	(1, 2);
+
+SELECT p.id, p.titulo, c.nome FROM postagens p 
+INNER JOIN postagens_categorias pc
+ON p.id = pc.postagem_id
+INNER JOIN categorias c 
+ON pc.categoria_id = c.id
+WHERE p.id = 1;
+
+/*
+Acima garantimos o relacionamento N:N entre as tabelas postagens e categorias.
+Foi criada a tabela associativa postagens_categorias que terá as colunas
+associadas a cada coluna id das tabelas postagens e categorias, permitindo
+a associação entre essas 2 tabelas.
+*/
