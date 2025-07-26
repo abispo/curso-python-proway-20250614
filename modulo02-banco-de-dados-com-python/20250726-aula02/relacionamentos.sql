@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS usuarios(
 	senha VARCHAR(100) NOT NULL,
 	criado_em DATETIME DEFAULT CURRENT_TIMESTAMP()
 );
+SELECT * FROM usuarios;
 
 CREATE TABLE IF NOT EXISTS perfis(
 	id INT PRIMARY KEY,
@@ -48,3 +49,30 @@ CREATE TABLE IF NOT EXISTS perfis(
 
 -- Caso você queira adicionar a chave estrangeira depois
 ALTER TABLE perfis ADD FOREIGN KEY(id) REFERENCES usuarios(id);
+
+/*
+Acima, criamos um relacionamento entre as tabelas usuarios e perfis. Utilizamos
+a instrução FOREIGN KEY... REFERENCES para criar essa ligação. Como criamos
+essa ligação na coluna id de perfis, que também é chave primária, os valores
+dessa coluna ao mesmo tempo que não devem se repetir, devem existir na tabela
+usuarios (tabela referenciada). Abaixo veremos alguns exemplos.
+*/
+
+INSERT INTO usuarios(email, senha) VALUES (
+	'joao.silva@email.com', 'joao123'
+);
+INSERT INTO usuarios(email, senha) VALUES ( 
+	'maria.batista@email.com', 'maria123'
+);
+INSERT INTO usuarios(email, senha) VALUES (
+	'barbara.barreto@email.com', 'barbara123'
+);
+SELECT * FROM usuarios;
+
+INSERT INTO perfis(id, nome, data_de_nascimento, genero) VALUES (
+	1, 'João da Silva', '1980-11-17', 'Masculino'
+);
+INSERT INTO perfis(id, nome, data_de_nascimento, genero) VALUES (
+	2, 'Maria Batista', NULL, 'Feminino'
+);
+SELECT * FROM perfis;
