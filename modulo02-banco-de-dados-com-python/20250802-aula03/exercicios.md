@@ -1,8 +1,6 @@
 # Exercícios Formas Normais
 
-## Primeira Forma Normal (1FN)
-
-### Aplique a primeira forma normal nas seguintes tabelas:
+# Normalize (aplique as formas normais que achar necessário) as tabelas abaixo.
 
 ```
 PS: As colunas que contém asterisco (*) são as chaves primárias das tabelas
@@ -38,19 +36,6 @@ PS: As colunas que contém asterisco (*) são as chaves primárias das tabelas
 
 ---
 
-## Segunda Forma Normal (2FN)
-
-### Aplique a Segunda Forma Normal nas seguintes tabelas
-
-| \*Código Pedido | \*Código Produto | Nome Produto | Categoria | Preço | Quantidade |
-| --------------- | ---------------- | ------------ | --------- | ----- | ---------- |
-| 1001            | 001              | Camiseta     | Vestuário | 29.99 | 2          |
-| 1001            | 002              | Caneca       | Casa      | 12.99 | 1          |
-| 1002            | 002              | Caneca       | Casa      | 12.99 | 3          |
-| 1002            | 003              | Adesivo      | Papelaria | 1.99  | 5          |
-
----
-
 | \*Código Pedido | Nome Cliente | Endereço Cliente      | Cidade Cliente | \*Código Produto | Nome Produto | Preço |
 | --------------- | ------------ | --------------------- | -------------- | ---------------- | ------------ | ----- |
 | 1001            | João Silva   | Rua das Flores, 123   | São Paulo      | 001              | Camiseta     | 29.99 |
@@ -68,10 +53,6 @@ PS: As colunas que contém asterisco (*) são as chaves primárias das tabelas
 | 1002                | Programação I   | Computação   | Pedro Silva    | 003            | Carlos Lima | 7.5  |
 
 ---
-
-## Terceira Forma Normal (3FN)
-
-### Aplique a Terceira Forma Normal nas seguintes tabelas
 
 | Disciplina       | Aluno           | Nota 1 | Nota 2 | Nota 3 | Média |
 | ---------------- | --------------- | ------ | ------ | ------ | ----- |
