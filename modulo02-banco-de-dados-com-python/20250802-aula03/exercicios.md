@@ -8,11 +8,11 @@ PS: As colunas que contém asterisco (*) são as chaves primárias das tabelas
 
 #### tb_pedidos
 
-| \*pedido_id | nome_cliente | produto                 | quantidade |
-| ----------- | ------------ | ----------------------- | ---------- |
-| 1           | João Silva   | Camisa, Caneca          | 2, 1       |
-| 2           | Jane Smith   | Adesivo, Caneca, Cantil | 1, 3, 2    |
-| 3           | Sara Correa  | Cafeteira               | 1          |
+| \*pedido_id | data_hora           | nome_cliente | produto                 | quantidade |
+| ----------- | ------------------- | ------------ | ----------------------- | ---------- |
+| 1           | 2025-05-12 04:05:10 | João Silva   | Camisa, Caneca          | 2, 1       |
+| 2           | 2025-05-12 04:05:10 | Jane Smith   | Adesivo, Caneca, Cantil | 1, 3, 2    |
+| 3           | 2025-05-12 04:05:10 | Sara Correa  | Cafeteira               | 1          |
 
 ---
 
