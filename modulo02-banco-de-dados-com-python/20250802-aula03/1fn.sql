@@ -12,7 +12,7 @@ de 1 valor
 recomendável a criação de uma chave primária.
 */
 
-CREATE DATABASE IF NOT EXISTS modulo02_nfs;
+CREATE DATABASE IF NOT EXISTS modulo02_fns;
 
 -- Criação da tabela tb_clientes, que não está normalizada
 

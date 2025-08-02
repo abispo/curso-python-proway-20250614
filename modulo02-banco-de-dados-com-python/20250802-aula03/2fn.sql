@@ -7,7 +7,7 @@ Uma tabela está na 2FN, quando:
 da chave primária. Chamamos isso de dependência funcional total
 */
 
-CREATE DATABASE IF NOT EXISTS modulo02_nfs;
+CREATE DATABASE IF NOT EXISTS modulo02_fns;
 
 -- A tabela abaixo viola as regras da 2FN
 CREATE TABLE IF NOT EXISTS tb_matriculas(
