@@ -36,15 +36,6 @@ PS: As colunas que contém asterisco (*) são as chaves primárias das tabelas
 
 ---
 
-| \*Código Pedido | Nome Cliente | Endereço Cliente      | Cidade Cliente | \*Código Produto | Nome Produto | Preço |
-| --------------- | ------------ | --------------------- | -------------- | ---------------- | ------------ | ----- |
-| 1001            | João Silva   | Rua das Flores, 123   | São Paulo      | 001              | Camiseta     | 29.99 |
-| 1001            | João Silva   | Rua das Flores, 123   | São Paulo      | 002              | Caneca       | 12.99 |
-| 1002            | Ana Santos   | Av. das Palmeiras, 45 | Rio de Janeiro | 002              | Caneca       | 12.99 |
-| 1002            | Ana Santos   | Av. das Palmeiras, 45 | Rio de Janeiro | 003              | Adesivo      | 1.99  |
-
----
-
 | \*Código Disciplina | Nome Disciplina | Departamento | Nome Professor | \*Código Aluno | Nome Aluno  | Nota |
 | ------------------- | --------------- | ------------ | -------------- | -------------- | ----------- | ---- |
 | 1001                | Cálculo I       | Matemática   | Ana Souza      | 001            | João Silva  | 8.0  |
