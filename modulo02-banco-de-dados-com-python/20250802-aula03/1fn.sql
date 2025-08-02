@@ -60,3 +60,57 @@ CREATE TABLE IF NOT EXISTS tb_clientes(
 	cidade VARCHAR(50) NOT NULL,
 	uf CHAR(2) NOT NULL
 );
+
+INSERT INTO tb_clientes (
+	nome, tipo_logradouro, logradouro, numero, bairro, cidade, uf
+) VALUES
+	(
+	'Maria das Dores',
+	'Rua', 'XV de Novembro', '100', 'Centro', 'Blumenau', 'SC'
+	),
+	(
+	'João da Silva',
+	'Praça', 'da Liberdade', '12', 'Liberdade', 'São Paulo', 'SP'
+	),
+	(
+	'Carlos Manuel Carvalho',
+	'Rua', 'dos Bandeirantes', '240', 'Centro', 'Pomerode', 'SC'
+	);
+SELECT * FROM tb_clientes;
+
+/*
+No caso da coluna telefone, como é uma coluna que pode ter dados multivalorados,
+a saída é criar uma tabela que irá armazenar esses telefones. Essa tabela será
+relacionada com a tabela de clientes.
+*/
+
+CREATE TABLE IF NOT EXISTS tb_telefones(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	cliente_id INT NOT NULL,
+	ddd TINYINT UNSIGNED NOT NULL,
+	telefone VARCHAR(20) NOT NULL
+);
+
+ALTER TABLE tb_telefones ADD FOREIGN KEY(cliente_id) REFERENCES tb_clientes(id);
+
+INSERT INTO tb_telefones(cliente_id, ddd, telefone) VALUES
+	(1, 47, '933333333'),
+	(2, 11, '988888888'),
+	(2, 47, '977777777'),
+	(3, 47, '955555555');
+
+INSERT INTO tb_clientes(
+	nome, tipo_logradouro, logradouro, numero, bairro, cidade, uf
+) VALUES (
+	'Barbara dos Santos',
+	'Avenida',
+	'Brasil',
+	'1500',
+	'Centro',
+	'Rio de Janeiro',
+	'RJ'
+);
+
+SELECT tc.nome, tt.ddd, tt.telefone FROM tb_clientes tc
+INNER JOIN tb_telefones tt
+ON tc.id = tt.cliente_id;
