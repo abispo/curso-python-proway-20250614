@@ -69,3 +69,19 @@ class FolhaDePagamento:
             print(f" = Salário: {salario:.2f}")
             print('*'*30)
         print(" ================================== ")
+
+if __name__ == "__main__":
+
+    maria = FuncionarioCLT("Maria das Dores", 2100)
+    georgina = FuncionarioCLT("Georgina Faria", 1900)
+    jorge = FuncionarioCLT("Jorge Campos", 3000)
+    barbara = FuncionarioTerceirizado("Barbara Flores", 90, 70)
+    cristina = FuncionarioTerceirizado("Cristina Justo", 35, 22)
+    paula = FuncionarioComissionado("Paula Oliveira", 99543.88, 3)
+    vanessa = FuncionarioComissionado("Vanessa Santos", 56990.54, 5)
+
+    folha = FolhaDePagamento(
+        [maria, georgina, jorge, barbara, cristina, paula, vanessa]
+    )
+
+    folha.gerar()
