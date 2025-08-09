@@ -23,6 +23,12 @@ class Pokemon
     }
 }
 
+class Pikachu extends Pokemon {
+    public Pikachu() {
+        super("Pikachu", "Elétrico", 60)
+    }
+}
+
 class Main {
     public static void main(String[] args) {
         Pokemon pikachu = new Pokemon("Pikachu", "Elétrico", 60);
@@ -30,5 +36,8 @@ class Main {
         
         pikachu.setSaude(50);
         System.out.println(pikachu.getSaude());
+
+        Pikachu pikachu2 = new Pikachu()
+        System.out.println(pikachu2.getSaude())
     }
 }
