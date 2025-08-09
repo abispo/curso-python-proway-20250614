@@ -58,3 +58,5 @@ class ContaPoupancaCaixa(ContaInvestimento):
 
     def __init__(self, saldo = 0, taxa = 0.01):
         super().__init__("Conta Poupança Caixa", saldo, taxa)
+
+# https://speakerdeck.com/curiouslearner/method-resolution-order-in-python
