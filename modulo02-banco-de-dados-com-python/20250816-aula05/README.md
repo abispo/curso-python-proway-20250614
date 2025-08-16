@@ -20,4 +20,5 @@ Você ira criar a model `Post`, que irá representar a tabela `posts` no banco d
 * Coluna user_id, int, chave estrangeira da tabela users (coluna id)
 * Coluna titulo, varchar(100), não pode conter valores nulos
 * Coluna content, varchar(1000), não pode conter valores nulos
-* Coluna user, que será do tipo relationship e trará a instância de User que criou essa postagem.
+
+* Na model Postagem criar a propriedade user, que será do tipo relationship e trará a instância de User que criou essa postagem.
