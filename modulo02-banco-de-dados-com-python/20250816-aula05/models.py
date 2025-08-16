@@ -1,4 +1,6 @@
-from sqlalchemy import Integer, String
+from datetime import date
+
+from sqlalchemy import Integer, String, ForeignKey, Date
 from sqlalchemy.orm import Mapped, mapped_column
 
 from config import Base
@@ -17,3 +19,13 @@ class User(Base):
     email: Mapped[str] = mapped_column(String(100), nullable=False)
 
     password: Mapped[str] = mapped_column(String(100), nullable=False)
+
+
+class Profile(Base):
+
+    __tablename__ = "profiles"
+
+    id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), primary_key=True)
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
+    birth_date: Mapped[date] = mapped_column(Date, nullable=True)
+    gender: Mapped[str] = mapped_column(String(100), nullable=True)
