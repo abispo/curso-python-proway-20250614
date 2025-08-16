@@ -57,7 +57,20 @@ def select_users():
         return
 
     for user in users:
-        print(f"{user.email}")
+        # Como criamos as propridades do tipo relationship das models User e Profile, não será mais necessário fazer explicitamente a consulta na tabela profiles buscando o perfil do usuário.
+        # stmt = select(Profile).where(Profile.id == user.id)
+        # profile: Profile = session.execute(stmt).scalar_one_or_none()
+
+        if not user.profile:
+            print(f"O usuário '{user.email}' não possui dados de perfil!")
+            continue
+
+        print(f"Email: {user.email}")
+        # Conseguimos fazer user.profile.name, pois profile é uma propriedade do tipo relationship, que trará a instância de Profile que está associada a esse usuário.
+        print(f"Nome: {user.profile.name}")
+        print(f"Data de Nascimento: {user.profile.birth_date}")
+        print(f"Gênero: {user.profile.gender}")
+        print('='*30)
 
 
 def insert_users(

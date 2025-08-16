@@ -1,7 +1,7 @@
 from datetime import date
 
 from sqlalchemy import Integer, String, ForeignKey, Date
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from config import Base
 
@@ -17,8 +17,10 @@ class User(Base):
     
     # Coluna email, do tipo varchar(100) e que não permite valores nulos
     email: Mapped[str] = mapped_column(String(100), nullable=False)
-
     password: Mapped[str] = mapped_column(String(100), nullable=False)
+
+    # Abaixo estamos criando a propriedade profile que será do tipo relationship. Com isso, podemos criar uma relação entre as instâncias User e Profile (desde que exista uma chave estrangeira ligando as tabelas), ou seja, podemos carregar os dados do perfil do usuário fazendo a chamada user.profile. O atributo profile nesse caso sera a instância da classe Profile. Podemos fazer também profile.user, que por sua vez irá carregar os dados de usuário associados ao perfil
+    profile: Mapped["Profile"] = relationship(back_populates="user")
 
     def __str__(self):
         return f"<User({self.id}, {self.email})>"
@@ -36,3 +38,5 @@ class Profile(Base):
     name: Mapped[str] = mapped_column(String(100), nullable=False)
     birth_date: Mapped[date] = mapped_column(Date, nullable=True)
     gender: Mapped[str] = mapped_column(String(100), nullable=True)
+
+    user: Mapped["User"] = relationship(back_populates="profile")
