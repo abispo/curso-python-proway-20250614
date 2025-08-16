@@ -25,6 +25,7 @@ class Profile(Base):
 
     __tablename__ = "profiles"
 
+    # Abaixo estamos criando a coluna id da tabela profiles como chave primária e chave estrangeira da coluna id da tabela users. Utilizamos a classe ForeignKey para criar essa chave estrangeira. E como valor passamos [nome_da_tabela.nome_da_coluna]
     id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), primary_key=True)
     name: Mapped[str] = mapped_column(String(100), nullable=False)
     birth_date: Mapped[date] = mapped_column(Date, nullable=True)

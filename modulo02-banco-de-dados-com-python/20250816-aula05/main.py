@@ -28,4 +28,5 @@ Informe a opção desejada:
                 break
 
             case 1:
+                # Chamamos a função de gerenciamento de usuários e perfis
                 users_management()
