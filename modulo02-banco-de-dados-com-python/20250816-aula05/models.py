@@ -1,4 +1,5 @@
 from datetime import date
+from typing import List
 
 from sqlalchemy import Integer, String, ForeignKey, Date
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -22,6 +23,8 @@ class User(Base):
     # Abaixo estamos criando a propriedade profile que será do tipo relationship. Com isso, podemos criar uma relação entre as instâncias User e Profile (desde que exista uma chave estrangeira ligando as tabelas), ou seja, podemos carregar os dados do perfil do usuário fazendo a chamada user.profile. O atributo profile nesse caso sera a instância da classe Profile. Podemos fazer também profile.user, que por sua vez irá carregar os dados de usuário associados ao perfil
     profile: Mapped["Profile"] = relationship(back_populates="user")
 
+    posts: Mapped[List["Post"]] = relationship(back_populates="user")
+
     def __str__(self):
         return f"<User({self.id}, {self.email})>"
     
@@ -40,3 +43,15 @@ class Profile(Base):
     gender: Mapped[str] = mapped_column(String(100), nullable=True)
 
     user: Mapped["User"] = relationship(back_populates="profile")
+
+
+class Post(Base):
+
+    __tablename__ = "posts"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
+    title: Mapped[str] = mapped_column(String(100), nullable=False)
+    content: Mapped[str] = mapped_column(String(1000), nullable=False)
+
+    user: Mapped["User"] = relationship(back_populates="posts")
