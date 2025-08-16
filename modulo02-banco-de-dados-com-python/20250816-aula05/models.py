@@ -20,6 +20,12 @@ class User(Base):
 
     password: Mapped[str] = mapped_column(String(100), nullable=False)
 
+    def __str__(self):
+        return f"<User({self.id}, {self.email})>"
+    
+    def __repr__(self):
+        return f"<User({self.id}, {self.email})>"
+
 
 class Profile(Base):
 
