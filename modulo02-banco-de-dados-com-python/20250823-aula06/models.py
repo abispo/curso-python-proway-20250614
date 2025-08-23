@@ -1,10 +1,17 @@
-from datetime import date
+from datetime import date, datetime
 from typing import List
 
-from sqlalchemy import Integer, String, ForeignKey, Date
+from sqlalchemy import Integer, String, ForeignKey, Date, DateTime, func, Table, Column
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from config import Base
+
+posts_categories = Table(
+    "posts_categories",
+    Base.metadata,
+    Column("post_id", Integer, ForeignKey("posts.id"), primary_key=True),
+    Column("category_id", Integer, ForeignKey("categories.id"), primary_key=True)
+)
 
 # Aqui criamos a classe que será mapeada para a tabela users no banco de dados. Total model obrigatoriamente deve herdar da classe Base
 class User(Base):
@@ -19,6 +26,7 @@ class User(Base):
     # Coluna email, do tipo varchar(100) e que não permite valores nulos
     email: Mapped[str] = mapped_column(String(100), nullable=False)
     password: Mapped[str] = mapped_column(String(100), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), nullable=True)
 
     # Abaixo estamos criando a propriedade profile que será do tipo relationship. Com isso, podemos criar uma relação entre as instâncias User e Profile (desde que exista uma chave estrangeira ligando as tabelas), ou seja, podemos carregar os dados do perfil do usuário fazendo a chamada user.profile. O atributo profile nesse caso sera a instância da classe Profile. Podemos fazer também profile.user, que por sua vez irá carregar os dados de usuário associados ao perfil
     profile: Mapped["Profile"] = relationship(back_populates="user")
@@ -53,5 +61,13 @@ class Post(Base):
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
     title: Mapped[str] = mapped_column(String(100), nullable=False)
     content: Mapped[str] = mapped_column(String(1000), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), nullable=True)
 
     user: Mapped["User"] = relationship(back_populates="posts")
+
+class Category(Base):
+    
+    __tablename__ = "categories"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
