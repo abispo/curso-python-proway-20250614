@@ -1,4 +1,4 @@
-# Módulo 6: Migrações de Banco de Dados com Alembic
+# Migrações de Banco de Dados com Alembic
 
 Neste último módulo, exploraremos o **Alembic**, uma ferramenta essencial para gerenciar as **migrações de schema** do seu banco de dados.
 
