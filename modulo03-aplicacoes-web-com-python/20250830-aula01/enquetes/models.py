@@ -21,3 +21,7 @@ class Opcao(models.Model):
 
     class Meta:
         db_table = "opcoes"
+        verbose_name_plural = "Opções"
+
+    def __str__(self):
+        return f"{self.texto_opcao} ({self.pergunta.texto_pergunta})"
