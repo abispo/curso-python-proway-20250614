@@ -1,7 +1,9 @@
-from django.http import HttpResponse
+from django.db.models import F
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
-from .models import Pergunta
+from .models import Pergunta, Opcao
 
 def index(request):
     ultimas_cinco_perguntas = Pergunta.objects.order_by("-data_publicacao")[:5]
@@ -27,4 +29,25 @@ def resultados(request, pergunta_id):
 
 
 def votar(request, pergunta_id):
-    return HttpResponse(f"Você está votando em uma opção da pergunta '{pergunta_id}'.")
+    
+    pergunta = get_object_or_404(Pergunta, pk=pergunta_id)
+
+    try:
+        opcao_selecionada = pergunta.opcao_set.get(pk=request.POST["opcao"])
+    except (KeyError, Opcao.DoesNotExist):
+        return render(
+            request,
+            "enquetes/detalhes.html",
+            {
+                "pergunta": pergunta,
+                "mensagem_erro": "Você deve selecionar uma opção"
+            }
+        )
+    
+    else:
+        opcao_selecionada.votos = F("votos") + 1
+        opcao_selecionada.save()
+
+        return HttpResponseRedirect(
+            reverse("enquetes:resultados", args=(pergunta.id,))
+        )
