@@ -1,6 +1,6 @@
 # Desafio
 
-Você irá criar um novo pacote, chamado `estatísticas`. Esse pacote irá ter uma página que mostrará algumas informações sobre as perguntas cadastradas no sistema. Esse pacote terá apenas 1 rota, que será a rota `index`. A página que será exibida, deve mostrar as seguintes informações:
+Você irá criar um novo pacote, chamado `estatisticas`. Esse pacote irá ter uma página que mostrará algumas informações sobre as perguntas cadastradas no sistema. Esse pacote terá apenas 1 rota, que será a rota `index`. A página que será exibida, deve mostrar as seguintes informações:
 
 * Quantidade de perguntas cadastradas
 * Quantidade de opções cadastradas
