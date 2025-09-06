@@ -8,31 +8,55 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Pergunta',
+            name="Pergunta",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('texto_pergunta', models.CharField(max_length=100)),
-                ('data_publicacao', models.DateTimeField(verbose_name='Data de publicação')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("texto_pergunta", models.CharField(max_length=100)),
+                (
+                    "data_publicacao",
+                    models.DateTimeField(verbose_name="Data de publicação"),
+                ),
             ],
             options={
-                'db_table': 'perguntas',
+                "db_table": "perguntas",
             },
         ),
         migrations.CreateModel(
-            name='Opcao',
+            name="Opcao",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('texto_opcao', models.CharField(max_length=100)),
-                ('votos', models.IntegerField(default=0)),
-                ('pergunta', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='enquetes.pergunta')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("texto_opcao", models.CharField(max_length=100)),
+                ("votos", models.IntegerField(default=0)),
+                (
+                    "pergunta",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="enquetes.pergunta",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'opcoes',
+                "db_table": "opcoes",
             },
         ),
     ]
