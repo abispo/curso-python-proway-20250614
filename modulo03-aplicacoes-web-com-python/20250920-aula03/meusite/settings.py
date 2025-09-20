@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'enquetes.apps.EnquetesConfig'
+    'enquetes.apps.EnquetesConfig',
+    'estatisticas.apps.EstatisticasConfig',
 ]
 
 MIDDLEWARE = [
