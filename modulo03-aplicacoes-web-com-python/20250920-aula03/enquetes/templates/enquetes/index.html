@@ -1,13 +1,17 @@
-{% if ultimas_cinco_perguntas %}
-<ul>
-    {% for pergunta in ultimas_cinco_perguntas %}
-        <li>
-            <a href="{% url 'enquetes:detalhes' pergunta.id %}">{{ pergunta.texto_pergunta }}</a>
-        </li>
-    {% endfor %}
-</ul>
-{% else %}
-    <p>Não existem perguntas cadastradas.</p>
-{% endif %}
-<hr />
-<p><a href="{% url 'estatisticas:index' %}">Ir para a página de estatísticas</a></p>
+{% extends "base.html" %}
+
+{% block conteudo %}
+    {% if ultimas_cinco_perguntas %}
+    <ul>
+        {% for pergunta in ultimas_cinco_perguntas %}
+            <li>
+                <a href="{% url 'enquetes:detalhes' pergunta.id %}">{{ pergunta.texto_pergunta }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>Não existem perguntas cadastradas.</p>
+    {% endif %}
+    <hr />
+    <p><a href="{% url 'estatisticas:index' %}">Ir para a página de estatísticas</a></p>
+{% endblock conteudo %}

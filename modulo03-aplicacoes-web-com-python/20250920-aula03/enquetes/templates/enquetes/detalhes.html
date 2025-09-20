@@ -1,20 +1,24 @@
-<form action="{% url "enquetes:votar" pergunta.id %}" method="post">
-    {% csrf_token %}
-    <fieldset>
-        <legend><h1>{{ pergunta.texto_pergunta }}</h1></legend>
-        {% if mensagem_erro %}<p><strong>{{ mensagem_erro}}</strong></p>{% endif %}
+{% extends "base.html" %}
 
-        {% for opcao in pergunta.opcao_set.all %}
-        <input
-            type="radio"
-            name="opcao"
-            id="opcao{{ forloop.counter }}"
-            value="{{ opcao.id }}"
-        >
-        <label for="opcao{{ forloop.counter }}">{{ opcao.texto_opcao }}</label>
-        {% endfor %}
-    </fieldset>
-    <input type="submit" value="Votar">
-</form>
-<hr>
-<a href="{% url 'enquetes:index' %}">Ir para a página principal</a>
+{% block conteudo %}
+    <form action="{% url "enquetes:votar" pergunta.id %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h1>{{ pergunta.texto_pergunta }}</h1></legend>
+            {% if mensagem_erro %}<p><strong>{{ mensagem_erro}}</strong></p>{% endif %}
+
+            {% for opcao in pergunta.opcao_set.all %}
+            <input
+                type="radio"
+                name="opcao"
+                id="opcao{{ forloop.counter }}"
+                value="{{ opcao.id }}"
+            >
+            <label for="opcao{{ forloop.counter }}">{{ opcao.texto_opcao }}</label>
+            {% endfor %}
+        </fieldset>
+        <input type="submit" value="Votar">
+    </form>
+    <hr>
+    <a href="{% url 'enquetes:index' %}">Ir para a página principal</a>
+{% endblock conteudo %}
