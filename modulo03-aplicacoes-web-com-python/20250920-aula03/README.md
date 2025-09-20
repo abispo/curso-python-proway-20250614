@@ -1,10 +1,12 @@
 # Desafio
 
-Você irá criar um novo pacote, chamado `estatisticas`. Esse pacote irá ter uma página que mostrará algumas informações sobre as perguntas cadastradas no sistema. Esse pacote terá apenas 1 rota, que será a rota `index`. A página que será exibida, deve mostrar as seguintes informações:
+Implementar um sistema de feedback de enquetes. Quando o usuário votar em uma enquete e ser direcionado para a página de resultados, nessa página de resultados ele poderá dar uma nota de 1 a 5 pra essa enquete.
 
-* Quantidade de perguntas cadastradas
-* Quantidade de opções cadastradas
-* Média de opções por pergunta
-* Lista das 3 perguntas com mais votos, ordenada pela quantidade de votos.
+O que você fará é criar toda a estrutura de tratamento dessa informação:
+* A rota que irá receber essa informação.
+* A função view que irá tratar os dados recebidos.
+* A model que irá armazenar a informação das notas de feedback das perguntas.
+* Redirecionar o usuário para uma outra página.
+* Na página de resultados, mostrar a nota média da pergunta.
 
-O link para a página de estatísticas deve ser mostrado na página principal do pacote enquetes. O texto fica a sua escolha.
+Então, basicamente o que você deve fazer é armazenar as informações enviadas pelo usuário.
