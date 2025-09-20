@@ -3,6 +3,13 @@
     <p>Quantidade de opções cadastradas: {{ qtd_opcoes_cadastradas }}</p>
     <p>Média de opções por pergunta: {{ media_opcoes_pergunta|floatformat:2 }}</p>
     <p>Lista das perguntas com mais votos: </p>
+    <div>
+        <ul>
+            {% for pergunta in perguntas_mais_votadas %}
+                <li>{{ pergunta }} - {{ pergunta.num_votos }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 <hr>
 <p><a href="{% url 'enquetes:index' %}">Voltar à página principal</a></p>

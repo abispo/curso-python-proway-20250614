@@ -1,4 +1,4 @@
-from django.db.models import Count, Avg
+from django.db.models import Count, Avg, Sum
 from django.shortcuts import render
 
 from enquetes.models import Pergunta, Opcao
@@ -23,12 +23,17 @@ def index(request):
     # valor_aggregate = valor_annotate.aggregate(media_opcoes=Avg("numero_de_opcoes"))
     # media_opcoes_pergunta = valor_aggregate["media_opcoes"]
 
+    perguntas_mais_votadas = Pergunta.objects.annotate(
+        num_votos=Sum("opcao__votos")
+    ).order_by("-num_votos")[:3]
+
     return render(
         request,
         template_name="estatisticas/index.html",
         context={
             "qtd_perguntas_cadastradas": qtd_perguntas_cadastradas,
             "qtd_opcoes_cadastradas": qtd_opcoes_cadastradas,
-            "media_opcoes_pergunta": media_opcoes_pergunta
+            "media_opcoes_pergunta": media_opcoes_pergunta,
+            "perguntas_mais_votadas": perguntas_mais_votadas
         }
     )
