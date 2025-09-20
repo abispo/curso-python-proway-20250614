@@ -9,6 +9,33 @@
         {% endfor %}
     </ul>
     <hr>
+    <div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Dê a sua nota para essa enquete:</legend>
+                <div>
+                    <input type="radio" name="nota" id="nota1" value="1">
+                    <label for="nota1">1</label>
+             
+                    <input type="radio" name="nota" id="nota2" value="2">
+                    <label for="nota2">2</label>
+                
+                    <input type="radio" name="nota" id="nota3" value="3">
+                    <label for="nota4">3</label>
+                
+                    <input type="radio" name="nota" id="nota4" value="4">
+                    <label for="nota4">4</label>
+    
+                    <input type="radio" name="nota" id="nota5" value="5">
+                    <label for="nota5">5</label>
+                </div>
+            </fieldset>
+            <input type="submit" value="Enviar">
+        </form>
+
+    </div>
+    <hr>
     <a href="{% url 'enquetes:detalhes' pergunta.id %}">Votar novamente</a><br>
     <a href="{% url 'enquetes:index' %}">Ir para a página principal</a>
 {% endblock conteudo %}
