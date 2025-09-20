@@ -1,7 +1,7 @@
 <div>
     <p>Quantidade de perguntas cadastradas: {{ qtd_perguntas_cadastradas }}</p>
     <p>Quantidade de opções cadastradas: {{ qtd_opcoes_cadastradas }}</p>
-    <p>Média de opções por pergunta: {{ media_opcoes_pergunta }}</p>
+    <p>Média de opções por pergunta: {{ media_opcoes_pergunta|floatformat:2 }}</p>
     <p>Lista das perguntas com mais votos: </p>
 </div>
 <hr>
