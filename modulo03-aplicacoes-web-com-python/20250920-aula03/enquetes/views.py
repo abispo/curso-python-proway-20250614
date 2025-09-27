@@ -1,9 +1,9 @@
-from django.db.models import F
-from django.http import HttpResponse, HttpResponseRedirect
+from django.db.models import F, Avg
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
-from .models import Pergunta, Opcao
+from .models import Pergunta, Opcao, FeedbackPergunta
 
 def index(request):
     ultimas_cinco_perguntas = Pergunta.objects.order_by("-data_publicacao")[:5]
@@ -24,11 +24,12 @@ def detalhes(request, pergunta_id):
 
 def resultados(request, pergunta_id):
     pergunta = get_object_or_404(Pergunta, pk=pergunta_id)
+    media_feedback = pergunta.feedbackpergunta_set.aggregate(media=Avg("nota"))
 
     return render(
         request,
         "enquetes/resultados.html",
-        {"pergunta": pergunta}
+        {"pergunta": pergunta, "media_feedback": media_feedback["media"]}
     )
 
 
@@ -60,3 +61,21 @@ def votar(request, pergunta_id):
         return HttpResponseRedirect(
             reverse("enquetes:resultados", args=(pergunta.id,))
         )
+
+def feedback_pergunta(request, pergunta_id):
+    pergunta = get_object_or_404(Pergunta, pk=pergunta_id)
+
+    try:
+        nota = request.POST["nota"]
+
+    except KeyError:
+        return HttpResponseRedirect(
+            reverse("enquetes:resultados", args=(pergunta.id,))
+        )
+
+    feedback_pergunta = FeedbackPergunta(nota=int(nota), pergunta=pergunta)
+    feedback_pergunta.save()
+    
+    return HttpResponseRedirect(
+        reverse("enquetes:resultados", args=(pergunta.id,))
+    )

@@ -27,3 +27,11 @@ class Opcao(models.Model):
 
     def __str__(self):
         return f"{self.texto_opcao} ({self.pergunta.texto_pergunta})"
+
+
+class FeedbackPergunta(models.Model):
+    pergunta = models.ForeignKey(Pergunta, on_delete=models.CASCADE)
+    nota = models.IntegerField(default=3)
+
+    class Meta:
+        db_table = "feedbacks_perguntas"

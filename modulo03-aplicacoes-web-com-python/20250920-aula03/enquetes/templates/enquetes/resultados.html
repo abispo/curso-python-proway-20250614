@@ -10,10 +10,14 @@
     </ul>
     <hr>
     <div>
-        <form action="" method="post">
+        <form action="{% url "enquetes:feedback" pergunta.id %}" method="post">
             {% csrf_token %}
             <fieldset>
-                <legend>Dê a sua nota para essa enquete:</legend>
+                <legend>Dê a sua nota para essa enquete (
+                    {% if media_feedback %}Média {{ media_feedback|floatformat:2}}
+                    {% else %}
+                    Sem média
+                    {% endif %}):</legend>
                 <div>
                     <input type="radio" name="nota" id="nota1" value="1">
                     <label for="nota1">1</label>
