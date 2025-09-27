@@ -142,3 +142,4 @@ INTERNAL_IPS = [
 ]
 
 LOGIN_REDIRECT_URL = "/users/me"
+LOGOUT_REDIRECT_URL = "users:me"
