@@ -1,4 +1,5 @@
-from django.forms import ValidationError
+
+from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.db.models import Q
@@ -83,4 +84,16 @@ def register(request):
     return render(
         request,
         "register/register.html"
+    )
+
+def invalid_pre_register(request):
+    return render(
+        request,
+        "register/invalid_pre_register.html"
+    )
+
+def expired_pre_register(request):
+    return render(
+        request,
+        "register/expired_pre_register.html"
     )
