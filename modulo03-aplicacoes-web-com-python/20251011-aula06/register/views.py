@@ -1,5 +1,7 @@
+from django.forms import ValidationError
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.db.models import Q
 
 from .forms import PreRegisterForm
 from .models import PreRegister
@@ -58,6 +60,26 @@ def pre_register_email_sent(request):
 
 
 def register(request):
+
+    if request.method == "GET":
+        try:
+            token = request.GET["id"]
+
+            # Buscamos por um registro onde o token seja igual ao que recebemos, e o pre registro esteja válido
+            pre_register = PreRegister.objects.filter(
+                # https://docs.djangoproject.com/en/5.2/ref/models/querysets/#operators-that-return-new-querysets
+                Q(token=token) & Q(is_valid=True)
+            ).first()
+
+            return render(
+                request,
+                "register/register.html",
+                {"pre_register": pre_register}
+            )
+        
+        except ValidationError:
+            return redirect(render(""))
+
     return render(
         request,
         "register/register.html"
