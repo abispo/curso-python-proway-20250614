@@ -94,13 +94,34 @@ def register(request):
         
         except (ValidationError, KeyError):
             return redirect(reverse(redirect_to))
+        
+    if request.method == "POST":
+        """
+        Vamos salvar os dados de usuário no sistema. Porém antes de salvar, temos que implementar as seguintes validações:
 
-    return render(
-        request,
-        "register/register.html"
-    )
+        1. Validar se todos os dados do formulário foram preenchidos
+        2. Validar se o nome de usuário informado já não existe na tabela de usuários
+        3. Validar se o valor do campo password é igual ao valor do campo password_confirm
+
+        Você pode implementar essas validações como funções no módulo validators.
+
+        Caso alguma validação falhe, os erros devem ser passados para o template como uma lista chamada "errors"
+
+        Para salvar o usuário devemos chamar o método create_user, da model User. Por exemplo:
+
+        User.objects.create_user(
+            first_name="",
+            last_name="",
+            username=""
+            email=""
+            password=""
+        )
+        """
+        pass
+
 
 def invalid_pre_register(request):
+
     return render(
         request,
         "register/invalid_pre_register.html"
