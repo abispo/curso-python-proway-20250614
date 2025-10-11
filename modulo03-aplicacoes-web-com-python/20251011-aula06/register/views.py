@@ -1,9 +1,10 @@
-from django import forms
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from .forms import PreRegisterForm
 from .models import PreRegister
 from .validators import email_already_exists_in_users, email_alreads_exists_in_pre_register
+from .utils import send_pre_register_email
 
 def pre_register(request):
 
@@ -18,14 +19,6 @@ def pre_register(request):
         )
     
     elif request.method == "POST":
-        # Pegar o email dessa maneira: request.POST["email"]
-
-        # Verifica se o e-mail já não está no pré-registro e é válido
-        # Se alguma das situações acima ocorrer, renderizar novamente a página enviando uma mensagem de erro
-        # Se não houverem erros
-        # Salvar o registro na tabela pre_register
-        # Enviar o e-mail para o usuario (desafio)
-
         try:
             form = PreRegisterForm(request.POST)
 
@@ -46,8 +39,26 @@ def pre_register(request):
                         {"form": form}
                     )
                 
-            pre_register = PreRegister(email=email)
-            pre_register.save()
+                pre_register = PreRegister(email=email)
+                pre_register.save()
+
+                send_pre_register_email(request=request, pre_register=pre_register)
+
+                return redirect(reverse("register:pre_register_email_sent"))
                 
         except Exception as exc:
             print(f"Erro ao receber os dados do formulário: {exc}")
+
+
+def pre_register_email_sent(request):
+    return render(
+        request,
+        "register/pre_register_email_sent.html"
+    )
+
+
+def register(request):
+    return render(
+        request,
+        "register/register.html"
+    )

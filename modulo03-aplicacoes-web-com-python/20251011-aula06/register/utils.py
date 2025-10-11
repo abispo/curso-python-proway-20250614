@@ -14,7 +14,7 @@ Caso não tenha sido você que fez o pré-registro, apenas ignore esse e-mail
 """.format(
     "https://" if request.is_secure() else "http://",
     request.get_host(),
-    "127.0.0.1",
+    reverse("register:register"),
     pre_register.token
 )
     
