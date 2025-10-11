@@ -2,6 +2,7 @@ from django import forms
 from django.shortcuts import render
 
 from .forms import PreRegisterForm
+from .models import PreRegister
 from .validators import email_already_exists_in_users, email_alreads_exists_in_pre_register
 
 def pre_register(request):
@@ -44,6 +45,9 @@ def pre_register(request):
                         "register/pre_register.html",
                         {"form": form}
                     )
+                
+            pre_register = PreRegister(email=email)
+            pre_register.save()
                 
         except Exception as exc:
             print(f"Erro ao receber os dados do formulário: {exc}")
