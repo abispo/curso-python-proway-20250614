@@ -9,12 +9,12 @@
                         {% for _, errors in form.errors.items %}
                             {% for error in errors %}
                                 <li class="d-flex justify-content-center">
-                                    <strong>{{ error.message }}</strong>
+                                    <strong>{{ error }}</strong>
                                 </li>
                             {% endfor %}
                         {% endfor %}
                     </ul>
-                    <button class="btn-close" data-bs-dismissible="alert" aria-label="Fechar"></button>
+                    <button class="btn btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
                 </div>
             </div>
         </div>
