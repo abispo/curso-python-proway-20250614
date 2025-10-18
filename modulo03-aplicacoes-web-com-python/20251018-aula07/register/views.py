@@ -4,14 +4,15 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils import timezone
+from django.http.request import HttpRequest
 
 from .exceptions import InvalidPreRegister, ExpiredPreRegister
 from .forms import PreRegisterForm
 from .models import PreRegister
-from .validators import email_already_exists_in_users, email_alreads_exists_in_pre_register
+from .validators import email_already_exists_in_users, email_alreads_exists_in_pre_register, all_fields_are_filled
 from .utils import send_pre_register_email
 
-def pre_register(request):
+def pre_register(request: HttpRequest):
 
     if request.method == "GET":
 
@@ -55,14 +56,14 @@ def pre_register(request):
             print(f"Erro ao receber os dados do formulário: {exc}")
 
 
-def pre_register_email_sent(request):
+def pre_register_email_sent(request: HttpRequest):
     return render(
         request,
         "register/pre_register_email_sent.html"
     )
 
 
-def register(request):
+def register(request: HttpRequest):
 
     if request.method == "GET":
         try:
@@ -117,17 +118,43 @@ def register(request):
             password=""
         )
         """
-        pass
+        try:
+            first_name = request.POST["first_name"]
+            last_name = request.POST["last_name"]
+            username = request.POST["username"]
+            email = request.POST["email"]
+            password = request.POST["password"]
+            password_confirm = request.POST["password_confirm"]
+
+            pre_register = PreRegister.objects.filter(email=email).first()
+
+            errors = []
+
+            if not all_fields_are_filled(first_name, last_name, username, email, password, password_confirm):
+                errors.append("Você deve preencher todos os campos do formulário.")
+
+            if errors:
+                return render(
+                    request,
+                    "register/register.html",
+                    {
+                        "pre_register": pre_register,
+                        "errors": errors
+                    }
+                )
+
+        except:
+            pass
 
 
-def invalid_pre_register(request):
+def invalid_pre_register(request: HttpRequest):
 
     return render(
         request,
         "register/invalid_pre_register.html"
     )
 
-def expired_pre_register(request):
+def expired_pre_register(request: HttpRequest):
     return render(
         request,
         "register/expired_pre_register.html"

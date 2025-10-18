@@ -9,3 +9,6 @@ def email_alreads_exists_in_pre_register(email: str) -> bool:
     return PreRegister.objects.filter(
         email=email, is_valid=True
     ).exists()
+
+def all_fields_are_filled(*args) -> bool:
+    return all(args)
