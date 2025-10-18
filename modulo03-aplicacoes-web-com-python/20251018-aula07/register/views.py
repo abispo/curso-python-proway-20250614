@@ -1,10 +1,12 @@
 
 from django.core.exceptions import ValidationError
 from django.db.models import Q
+from django.http.request import HttpRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils import timezone
-from django.http.request import HttpRequest
+
+from core.models import User
 
 from .exceptions import InvalidPreRegister, ExpiredPreRegister
 from .forms import PreRegisterForm
@@ -36,7 +38,6 @@ def pre_register(request: HttpRequest):
 
             if form.is_valid():
                 email = form.cleaned_data["email"]
-                # Verifica se o e-mail já não está cadastrado na tabela de usuários (users)
             
                 if email_already_exists_in_users(email):
                     form.add_error("email", "O e-mail informado já está cadastrado no sistema.")
@@ -103,28 +104,8 @@ def register(request: HttpRequest):
             return redirect(reverse(redirect_to))
         
     if request.method == "POST":
-        """
-        Vamos salvar os dados de usuário no sistema. Porém antes de salvar, temos que implementar as seguintes validações:
-
-        1. Validar se todos os dados do formulário foram preenchidos
-        2. Validar se o nome de usuário informado já não existe na tabela de usuários
-        3. Validar se o valor do campo password é igual ao valor do campo password_confirm
-
-        Você pode implementar essas validações como funções no módulo validators.
-
-        Caso alguma validação falhe, os erros devem ser passados para o template como uma lista chamada "errors"
-
-        Para salvar o usuário devemos chamar o método create_user, da model User. Por exemplo:
-
-        User.objects.create_user(
-            first_name="",
-            last_name="",
-            username=""
-            email=""
-            password=""
-        )
-        """
         try:
+            # Recebemos os valores do formulário
             first_name = request.POST["first_name"]
             last_name = request.POST["last_name"]
             username = request.POST["username"]
@@ -136,6 +117,7 @@ def register(request: HttpRequest):
 
             errors = []
 
+            # Fazemos algumas validações
             if not all_fields_are_filled(first_name, last_name, username, email, password, password_confirm):
                 errors.append("Você deve preencher todos os campos do formulário.")
 
@@ -144,6 +126,8 @@ def register(request: HttpRequest):
 
             if not passwords_match(password=password, password_confirm=password_confirm):
                 errors.append("Os valores das senhas são diferentes.")
+
+            # Caso alguma validação tenha falhado, mostramos a mensagem na tela
 
             if errors:
                 return render(
@@ -154,6 +138,21 @@ def register(request: HttpRequest):
                         "errors": errors
                     }
                 )
+            
+            # Criamos o registro na tabela users
+            User.objects.create_user(
+                username=username,
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
+                password=password
+            )
+
+            # Definimos o pré-registro do usuário como inválido (pois finalizou o cadastro)
+            pre_register.is_valid = False
+            pre_register.save()
+
+            return redirect(reverse("register:register_done"))
 
         except:
             pass
@@ -166,8 +165,16 @@ def invalid_pre_register(request: HttpRequest):
         "register/invalid_pre_register.html"
     )
 
+
 def expired_pre_register(request: HttpRequest):
     return render(
         request,
         "register/expired_pre_register.html"
+    )
+
+
+def register_done(request: HttpRequest):
+    return render(
+        request,
+        "register/register_done.html"
     )
