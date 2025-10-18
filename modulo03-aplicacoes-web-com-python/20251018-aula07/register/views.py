@@ -9,7 +9,13 @@ from django.http.request import HttpRequest
 from .exceptions import InvalidPreRegister, ExpiredPreRegister
 from .forms import PreRegisterForm
 from .models import PreRegister
-from .validators import email_already_exists_in_users, email_alreads_exists_in_pre_register, all_fields_are_filled
+from .validators import (
+    email_already_exists_in_users,
+    email_alreads_exists_in_pre_register,
+    all_fields_are_filled,
+    username_already_exists,
+    passwords_match
+)
 from .utils import send_pre_register_email
 
 def pre_register(request: HttpRequest):
@@ -132,6 +138,12 @@ def register(request: HttpRequest):
 
             if not all_fields_are_filled(first_name, last_name, username, email, password, password_confirm):
                 errors.append("Você deve preencher todos os campos do formulário.")
+
+            if username_already_exists(username=username):
+                errors.append("Esse nome de usuário já existe.")
+
+            if not passwords_match(password=password, password_confirm=password_confirm):
+                errors.append("Os valores das senhas são diferentes.")
 
             if errors:
                 return render(

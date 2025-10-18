@@ -12,3 +12,9 @@ def email_alreads_exists_in_pre_register(email: str) -> bool:
 
 def all_fields_are_filled(*args) -> bool:
     return all(args)
+
+def username_already_exists(username: str) -> bool:
+    return User.objects.filter(username=username).exists()
+
+def passwords_match(password: str, password_confirm: str) -> bool:
+    return password == password_confirm
