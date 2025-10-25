@@ -1,7 +1,11 @@
-# Criação da página de perfil do usuário.
+# Criação das páginas de listagem de tickets, criação e edição de ticket
 
-Logo após se logar, o usuário poderá acessar a sua página de perfil a partir de um link. Nessa página, ele poderá alterar algumas informações, nesse momento serão: Nome, sobrenome e data de nascimento. A rota para o perfil do usuário será `users/me/profile`.
+Você deve criar os templates, as funções view e as rotas para as funcionalidades de ticket. Lembrando que todas essas rotas devem ser acessadas apenas por usuários logados. As rotas devem ser as seguintes:
 
-Nessa página, as informações do usuário serão mostradas em um formulário. Esse formulário terá 3 campos: Um para cada informação a ser alterada. É importante frizar que os dados atuais do usuário serão carregados nesses campos Caso o usuário clique no botão "Atualizar", as informações do perfil do usuário serão atualizadas e o usuário será redirecionado para a rota `users/me`. Os dados desse formulário serão enviados para a mesma rota `/users/me/profile`.
+* `/tickets`: É a rota onde serão listados todos os tickets abertos pelo usuário atual.
+* `/tickets/new`: É a rota onde o usuário irá abrir um novo ticket
+* `/tickets/{id}`: É a rota onde o usuário irá visualizar o ticket aberto e poderá editá-lo
 
-O nome do template que será mostrado, será `users/profile.html`. A rota que será chamada é `users/me/profile`, e a função view que será chamada a partir da rota se chamará `profile`. A criação do formulário fica a sua escolha: Pode ser criado inteiramente no template, ou criado a partir de uma classe `Form` do Django e renderizado.
+Nessas páginas, os únicos campos que estarão disponíveis para o usuário alterar serão o título do ticket e a descrição. O owner deve ser preenchido com o usuário atualmente logado e o campo status deve ter o valor "open".
+
+Os nomes dos templates e das funções view devem fazer sentido com cada funcionalidade (listar, criar e editar).
