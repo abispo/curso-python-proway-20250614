@@ -1,9 +1,11 @@
 
+from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.http.request import HttpRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.utils import timezone
 
 from core.models import User
 from core.validators import all_fields_are_filled
@@ -139,13 +141,21 @@ def register(request: HttpRequest):
                 )
             
             # Criamos o registro na tabela users
-            User.objects.create_user(
+            user = User.objects.create_user(
                 username=username,
                 email=email,
                 first_name=first_name,
                 last_name=last_name,
                 password=password
             )
+
+            # Para todo usuário que se cadastrar pelo formulário, automaticamente estará associado ao grupo "Clientes"
+            clients_group, _ = Group.objects.get_or_create(
+                name="Clientes"
+            )
+
+            user.groups.add(clients_group)
+            user.save()
 
             # Definimos o pré-registro do usuário como inválido (pois finalizou o cadastro)
             pre_register.is_valid = False
