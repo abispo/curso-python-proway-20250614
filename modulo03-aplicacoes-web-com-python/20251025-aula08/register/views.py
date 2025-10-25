@@ -4,9 +4,9 @@ from django.db.models import Q
 from django.http.request import HttpRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.utils import timezone
 
 from core.models import User
+from core.validators import all_fields_are_filled
 
 from .exceptions import InvalidPreRegister, ExpiredPreRegister
 from .forms import PreRegisterForm
@@ -14,7 +14,6 @@ from .models import PreRegister
 from .validators import (
     email_already_exists_in_users,
     email_alreads_exists_in_pre_register,
-    all_fields_are_filled,
     username_already_exists,
     passwords_match
 )
