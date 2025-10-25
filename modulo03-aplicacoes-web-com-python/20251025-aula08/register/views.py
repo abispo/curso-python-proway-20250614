@@ -150,6 +150,7 @@ def register(request: HttpRequest):
             )
 
             # Para todo usuário que se cadastrar pelo formulário, automaticamente estará associado ao grupo "Clientes"
+            # Poderíamos também ter usado a abordagem de django signals
             clients_group, _ = Group.objects.get_or_create(
                 name="Clientes"
             )
