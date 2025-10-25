@@ -12,7 +12,7 @@ class Ticket(models.Model):
 
     title = models.CharField(max_length=200)
     description = models.TextField()
-    description_resolved = models.TextField()
+    description_resolved = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=30, choices=STATUS_CHOICES, default="open")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
