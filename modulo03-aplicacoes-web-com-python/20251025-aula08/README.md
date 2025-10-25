@@ -9,3 +9,5 @@ Você deve criar os templates, as funções view e as rotas para as funcionalida
 Nessas páginas, os únicos campos que estarão disponíveis para o usuário alterar serão o título do ticket e a descrição. O owner deve ser preenchido com o usuário atualmente logado e o campo status deve ter o valor "open".
 
 Os nomes dos templates e das funções view devem fazer sentido com cada funcionalidade (listar, criar e editar).
+
+Bonûs: Implementar as rotas utilizando class based views.
