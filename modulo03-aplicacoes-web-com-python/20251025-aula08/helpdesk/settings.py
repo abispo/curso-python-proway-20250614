@@ -42,9 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'core.apps.CoreConfig',
-    'users.apps.UsersConfig',
     'register.apps.RegisterConfig',
+    'tickets.apps.TicketsConfig',
+    'users.apps.UsersConfig',
 
     'debug_toolbar',
 ]
@@ -144,5 +146,6 @@ INTERNAL_IPS = [
 
 LOGIN_REDIRECT_URL = "/users/me"
 LOGOUT_REDIRECT_URL = "users:me"
+LOGIN_URL = "login"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

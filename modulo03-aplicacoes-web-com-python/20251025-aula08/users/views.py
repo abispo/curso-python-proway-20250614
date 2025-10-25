@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http.request import HttpRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -10,6 +11,8 @@ from .validators import parse_date
 def me(request: HttpRequest):
     return render(request, "users/me.html")
 
+
+@login_required
 def profile(request: HttpRequest):
     
     if request.method == "GET":
