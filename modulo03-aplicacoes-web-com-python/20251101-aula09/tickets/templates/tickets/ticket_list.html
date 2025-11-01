@@ -1,18 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="row">
+    <div class="row text-center">
         <div class="col">
             <h1>Tickets de {{ user.first_name }}</h1>
         </div>
     </div>
+    <hr>
     {% if ticket_list %}
         {% for ticket in ticket_list %}
-        <div class="row">
-            <div class="col">
-                <h3>{{ ticket.title }}</h3>
+            <div class="row justify-content-center">
+                <div class="col-3 text-center">
+                    <p>{{ ticket.title }}</p>
+                </div>
+                <div class="col-6 text-center">
+                    <p>{{ ticket.description }}</p>
+                </div>
+                <div class="col-3 text-center">
+                    <p>{{ ticket.status }}</p>
+                </div>
             </div>
-        </div>
         {% endfor %}
     {% else %}
         <div class="row">

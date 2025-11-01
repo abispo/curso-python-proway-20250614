@@ -9,7 +9,7 @@ class TicketListView(ListView):
     model = Ticket
 
     # Por padrão, caso não definirmos o context_object_name, será passado para o template como o nome da model concatenado com o texto _list. Nesse caso, o padrão seria ticket_list
-    context_object_name = "tickets"
+    context_object_name = "ticket_list"
 
     # Por padrão, caso não definirmos o template_name, a CBV tentará carregar o seguinte caminho para o template: nome da model pluralizado + nome da model seguido de _list.html.
     # Nesse caso, por padrão o caminho do template a ser renderizado será 'tickets/ticket_list.html'
