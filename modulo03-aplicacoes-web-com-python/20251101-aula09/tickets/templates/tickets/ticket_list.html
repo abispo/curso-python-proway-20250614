@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <h1>Tickets de {{ user.first_name }}</h1>
+        </div>
+    </div>
+    {% if ticket_list %}
+        {% for ticket in ticket_list %}
+        <div class="row">
+            <div class="col">
+                <h3>{{ ticket.title }}</h3>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="row">
+            <div class="col">
+                <h3>Você não possui tickets abertos</h3>
+            </div>
+        </div>
+    {% endif %}
+{% endblock content %}
