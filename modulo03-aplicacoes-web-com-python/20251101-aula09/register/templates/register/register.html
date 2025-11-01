@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row my-2">
+        <div class="col text-center">
+            <h3>Confirmação de cadastro</h3>
+        </div>
+    </div>
+    <hr>
+
+    {% if errors %}
+        <div class="row mt-2 justify-content-center">
+            <div class="col-6 text-center">
+                <div class="row lh-1">
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {% for error in errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                        <button class="btn btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <div class="row justify-content-center">
+            <div class="col-3">
+                <div class="form-floating">
+                    <input
+                        type="text"
+                        name="first_name"
+                        id="first_name"
+                        class="form-control"
+                        placeholder="Nome"
+                        required>
+                    <label for="first_name">Nome</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row my-1">
+            <div class="col"></div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-3">
+                <div class="form-floating">
+                    <input
+                        type="text"
+                        name="last_name"
+                        id="last_name"
+                        class="form-control"
+                        placeholder="Sobrenome"
+                        required>
+                    <label for="last_name">Sobrenome</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-3">
+            <div class="col-3">
+                <div class="form-floating">
+                    <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        class="form-control"
+                        placeholder="Nome de usuário"
+                        required>
+                    <label for="username">Nome de usuário</label>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="form-floating">
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        class="form-control"
+                        placeholder="E-mail"
+                        value="{{ pre_register.email }}"
+                        disabled>
+                    <label for="email">E-mail</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-3">
+            <div class="col-3">
+                <div class="form-floating">
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        class="form-control"
+                        placeholder="Senha"
+                        required>
+                    <label for="password">Senha</label>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="form-floating">
+                    <input
+                        type="password"
+                        name="password_confirm"
+                        id="password_confirm"
+                        class="form-control"
+                        placeholder="Confirme a senha"
+                        required>
+                    <label for="password_confirm">Confirme a senha</label>
+                </div>
+            </div>
+
+            <input type="hidden" name="email" value="{{ pre_register.email }}">
+
+            <div class="row justify-content-center mt-2">
+                <div class="col-6 d-grid">
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </div>
+            </div>
+        </div>        
+    </form>
+
+{% endblock content %}
