@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if form.errors %}
+        <div class="row justify-content-center mt-3">
+            <div class="col-3">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <ul class="list-unstyled">
+                        {% for _, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li class="d-flex justify-content-center">
+                                    <strong>{{ error }}</strong>
+                                </li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                    <button class="btn btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="row justify-content-center mt-3">
+            <div class="col-3">
+                <div class="form-floating">
+                    {{ form.email }}
+                    <label for="email" class="form-label">E-mail</label>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-2">
+            <div class="col-3 d-grid">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </div>
+    </form>
+
+{% endblock content %}
