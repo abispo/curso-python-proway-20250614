@@ -35,7 +35,9 @@
                     <p>{{ ticket.description }}</p>
                 </div>
                 <div class="col-3 text-center">
-                    <p><a href="{% url "tickets:edit_ticket" ticket.id %}">Editar</a></p>
+                    {% if perms.tickets.change_ticket %}
+                        <p><a href="{% url "tickets:edit_ticket" ticket.id %}">Editar</a></p>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
