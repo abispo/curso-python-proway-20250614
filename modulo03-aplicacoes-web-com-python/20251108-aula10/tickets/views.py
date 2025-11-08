@@ -1,6 +1,7 @@
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from .forms import TicketForm
 from .models import Ticket
@@ -51,8 +52,21 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
     
 
-class TicketUpdateView(LoginRequiredMixin, UpdateView):
+class TicketUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Ticket
     form_class = TicketForm
     template_name = "tickets/ticket_update_form.html"
     success_url = reverse_lazy("tickets:list_tickets")
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(owner=self.request.user)
+    
+    def test_func(self):
+        return self.model.objects.filter(
+            owner=self.request.user,
+            pk=self.kwargs["pk"]
+        ).exists()
+    
+    def handle_no_permission(self):
+        return redirect(reverse_lazy("tickets:list_tickets"))
