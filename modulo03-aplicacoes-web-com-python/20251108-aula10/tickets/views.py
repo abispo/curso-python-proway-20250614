@@ -1,8 +1,8 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import TicketCreateForm
+from .forms import TicketForm
 from .models import Ticket
 
 class TicketListView(LoginRequiredMixin, ListView):
@@ -36,7 +36,7 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
     model = Ticket
 
     # Aqui definimos o formulário que será renderizado no template. O Django irá injetar a variável de contexto referente a esse form no template
-    form_class = TicketCreateForm
+    form_class = TicketForm
 
     # Caso não definirmos o nome do template, o padrão seria 'tickets/ticket_form.html'
     template_name = "tickets/ticket_create_form.html"
@@ -50,3 +50,9 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         form.instance.status = "open"
         return super().form_valid(form)
     
+
+class TicketUpdateView(LoginRequiredMixin, UpdateView):
+    model = Ticket
+    form_class = TicketForm
+    template_name = "tickets/ticket_update_form.html"
+    success_url = reverse_lazy("tickets:list_tickets")

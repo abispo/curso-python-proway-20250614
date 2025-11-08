@@ -18,6 +18,9 @@
             <div class="col-3 text-center">
                 MENSAGEM
             </div>
+            <div class="col-3 text-center">
+                AÇÃO
+            </div>
         </div>
         <hr>
         {% for ticket in ticket_list %}
@@ -30,6 +33,9 @@
                 </div>
                 <div class="col-3 text-center">
                     <p>{{ ticket.description }}</p>
+                </div>
+                <div class="col-3 text-center">
+                    <p><a href="{% url "tickets:edit_ticket" ticket.id %}">Editar</a></p>
                 </div>
             </div>
         {% endfor %}
