@@ -29,3 +29,6 @@ class Ticket(models.Model):
 
     class Meta:
         db_table = "tickets"
+        permissions = [
+            ("can_change_ticket_status", "Pode alterar o status do próprio ticket",)
+        ]

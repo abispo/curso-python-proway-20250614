@@ -30,6 +30,16 @@
         </div>
     </div>
 
+    {% if perms.tickets.can_change_ticket_status %}
+        <div class="row justify-content-center mb-3">
+            <div class="col-6">
+                {{ form.status }}
+            </div>
+        </div>
+    {% else %}
+        <input type="hidden" name="{{ form.status.name }}" value="{{ form.status.value }}">
+    {% endif %}
+
     <div class="row justify-content-center">
         <div class="col-6 d-grid">
             <button type="submit" class="btn btn-primary">Salvar</button>   

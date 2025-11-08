@@ -71,3 +71,12 @@ class TicketUpdateView(LoginRequiredMixin, UserPassesTestMixin, PermissionRequir
     
     def handle_no_permission(self):
         return redirect(reverse_lazy("tickets:list_tickets"))
+    
+    # def get_form_kwargs(self):
+    #     kwargs = super().get_form_kwargs()
+    #     post_data = self.request.POST.copy()
+    #     ticket = self.model.objects.filter(owner=self.request.user, pk=kwargs['pk']).first()
+
+    #     post_data.update({"status": ticket.status})
+
+    #     return post_data

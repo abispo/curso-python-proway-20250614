@@ -11,7 +11,7 @@ class TicketForm(forms.ModelForm):
         model = Ticket
 
         # O atributo fields define quais os campos da model serão mostrados no formulário. Caso não indiquemos o atributo widgets, o django automaticamente gere no html os elementos correspondentes aos tipos de dados na model
-        fields = ["title", "description"]
+        fields = ["title", "description", "status"]
 
         # O atributo widgets é um dicionário onde podemos definir com mais controle como serão os elementos HTML que serão gerados a partir dos campos da model. No caso abaixo, além de definir os tipos de elementos, também podemos definir outras coisas, como as classes CSS que serão atribuídas aos elementos.
         widgets = {
@@ -23,6 +23,9 @@ class TicketForm(forms.ModelForm):
                 "class": "form-control",
                 "placeholder": "Descreva o problema.",
                 "style": "height: 150px"
+            }),
+            "status": forms.Select(attrs={
+                "class": "form-select"
             })
         }
 
