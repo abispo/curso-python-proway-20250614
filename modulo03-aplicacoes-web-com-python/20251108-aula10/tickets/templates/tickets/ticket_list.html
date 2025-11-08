@@ -8,16 +8,28 @@
     </div>
     <hr>
     {% if ticket_list %}
+        <div class="row justify-content-center">
+            <div class="col-3 text-center">
+                AUTOR
+            </div>
+            <div class="col-3 text-center">
+                TÍTULO
+            </div>
+            <div class="col-3 text-center">
+                MENSAGEM
+            </div>
+        </div>
+        <hr>
         {% for ticket in ticket_list %}
             <div class="row justify-content-center">
                 <div class="col-3 text-center">
-                    <p>{{ ticket.title }}</p>
-                </div>
-                <div class="col-6 text-center">
-                    <p>{{ ticket.description }}</p>
+                    <p>{{ ticket.owner }}</p>
                 </div>
                 <div class="col-3 text-center">
-                    <p>{{ ticket.status }}</p>
+                    <p>{{ ticket.title }}</p>
+                </div>
+                <div class="col-3 text-center">
+                    <p>{{ ticket.description }}</p>
                 </div>
             </div>
         {% endfor %}

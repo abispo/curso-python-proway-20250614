@@ -1,10 +1,11 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import TicketCreateForm
 from .models import Ticket
 
-class TicketListView(ListView):
+class TicketListView(LoginRequiredMixin, ListView):
     # A model a que esse CBV (Class Based View) está atrelado. O Django utiliza o nome da model para definir algumas coisas, como objeto de contexto, nome de template, etc..
     model = Ticket
 
@@ -23,8 +24,14 @@ class TicketListView(ListView):
     def get_context_data(self):
         return super().get_context_data(mensagem="Outro teste")
     
+    def get_queryset(self):
+        # Chamamos o método get_queryset da classe mãe (ListView)
+        queryset = super().get_queryset()
 
-class TicketCreateView(CreateView):
+        # Aqui filtramos apenas os tickets que tem como dono o usuário atualmente logado
+        return queryset.filter(owner=self.request.user)
+
+class TicketCreateView(LoginRequiredMixin, CreateView):
     # É a model da qual vamos adicionar um registro
     model = Ticket
 
